@@ -1,4 +1,4 @@
-import Sphere from './modules/sphere.js';
+import Plane from './modules/Plane.js';
 
 const canvas = document.getElementById('canvas-webgl');
 const renderer = new THREE.WebGLRenderer({
@@ -10,7 +10,14 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 const clock = new THREE.Clock();
 const stats = new Stats();
 
-const sphere = new Sphere();
+const images = [
+  'img/osaka01.jpg',
+  'img/osaka02.jpg',
+  'img/osaka03.jpg',
+  'img/osaka04.jpg',
+  'img/osaka05.jpg',
+];
+const plane = new Plane();
 
 const resizeWindow = () => {
   canvas.width = window.innerWidth;
@@ -18,7 +25,6 @@ const resizeWindow = () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-  sphere.resize();
 }
 const setEvent = () => {
   $(window).on('resize', () => {
@@ -28,18 +34,18 @@ const setEvent = () => {
 const initDatGui = () => {
   const gui = new dat.GUI();
   const controller = {
-    radius: gui.add(sphere, 'radius', 0, 1000).name('Sphere Radius')
+    //radius: gui.add(sphere, 'radius', 0, 1000).name('Sphere Radius')
   }
-  controller.radius.onChange((value) => {
-    sphere.mesh.material.uniforms.radius.value = value;
-  });
+  // controller.radius.onChange((value) => {
+  //   sphere.mesh.material.uniforms.radius.value = value;
+  // });
 }
 const initStats = () => {
   stats.showPanel(0);
   document.body.appendChild(stats.dom);
 }
 const render = () => {
-  sphere.render(clock.getDelta());
+  //sphere.render(clock.getDelta());
   renderer.render(scene, camera);
 }
 const renderLoop = () => {
@@ -52,10 +58,10 @@ const renderLoop = () => {
 const init = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xeeeeee, 1.0);
-  camera.position.set(1000, 1000, 1000);
+  camera.position.set(0, 0, 1000);
   camera.lookAt(new THREE.Vector3());
 
-  scene.add(sphere.mesh);
+  scene.add(plane.mesh);
 
   setEvent();
   initDatGui();

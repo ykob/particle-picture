@@ -1,8 +1,7 @@
 const glslify = require('glslify');
 
-export default class Sphere {
+export default class Plane {
   constructor() {
-    this.radius = 200;
     this.uniforms = null;
     this.mesh = this.createMesh();
   }
@@ -16,17 +15,13 @@ export default class Sphere {
         type: 'v2',
         value: new THREE.Vector2(window.innerWidth, window.innerHeight),
       },
-      radius: {
-        type: 'f',
-        value: this.radius,
-      },
     };
     return new THREE.Mesh(
-      new THREE.SphereGeometry(1, 64, 64),
+      new THREE.PlaneGeometry(600, 600),
       new THREE.RawShaderMaterial({
         uniforms: this.uniforms,
-        vertexShader: glslify('../../glsl/sphere.vs'),
-        fragmentShader: glslify('../../glsl/sphere.fs'),
+        vertexShader: glslify('../../glsl/plane.vs'),
+        fragmentShader: glslify('../../glsl/plane.fs'),
       })
     );
   }
