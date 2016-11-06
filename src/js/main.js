@@ -12,10 +12,6 @@ const stats = new Stats();
 
 const images = [
   'img/osaka01.jpg',
-  'img/osaka02.jpg',
-  'img/osaka03.jpg',
-  'img/osaka04.jpg',
-  'img/osaka05.jpg',
 ];
 const plane = new Plane();
 
