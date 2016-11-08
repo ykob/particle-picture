@@ -1,4 +1,4 @@
-import Plane from './modules/Plane.js';
+import ParticlePicture from './modules/ParticlePicture.js';
 
 const canvas = document.getElementById('canvas-webgl');
 const renderer = new THREE.WebGLRenderer({
@@ -11,9 +11,12 @@ const clock = new THREE.Clock();
 const stats = new Stats();
 
 const images = [
-  'img/osaka01.jpg',
+  'img/image01.jpg',
+  'img/image02.jpg',
+  'img/image03.jpg',
+  'img/image04.jpg'
 ];
-const plane = new Plane();
+const particlePicture = new ParticlePicture();
 
 const resizeWindow = () => {
   canvas.width = window.innerWidth;
@@ -57,12 +60,18 @@ const init = () => {
   camera.position.set(0, 0, 1000);
   camera.lookAt(new THREE.Vector3());
 
-  scene.add(plane.mesh);
-
-  setEvent();
-  initDatGui();
-  initStats();
-  resizeWindow();
-  renderLoop();
+  particlePicture.loadTexture(images, () => {
+    setTimeout(() => {
+      $('.p-preloader').addClass('is-hidden').on('transitionend', function() {
+        $(this).addClass('is-stoped');
+      });
+      particlePicture.addToScene(scene);
+      setEvent();
+      initDatGui();
+      initStats();
+      resizeWindow();
+      renderLoop();
+    }, 200);
+  });
 }
 init();

@@ -1,12 +1,12 @@
 const glslify = require('glslify');
 
-export default class Plane {
+export default class Points {
   constructor() {
     this.uniforms = {};
     this.interval = 3;
-    this.obj = null;
+    this.obj = this.createPoints();
   }
-  createMesh(texPrev, texNext) {
+  createPoints(texPrev, texNext) {
     this.uniforms = {
       time: {
         type: 'f',
@@ -29,12 +29,12 @@ export default class Plane {
         value: texNext,
       },
     };
-    this.obj = new THREE.Mesh(
-      new THREE.PlaneGeometry(512, 512),
+    return new THREE.Mesh(
+      new THREE.BufferGeometry(),
       new THREE.RawShaderMaterial({
         uniforms: this.uniforms,
-        vertexShader: glslify('../../glsl/plane.vs'),
-        fragmentShader: glslify('../../glsl/plane.fs'),
+        vertexShader: glslify('../../glsl/points.vs'),
+        fragmentShader: glslify('../../glsl/points.fs'),
       })
     );
   }
