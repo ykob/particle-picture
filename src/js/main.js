@@ -44,7 +44,7 @@ const initStats = () => {
   document.body.appendChild(stats.dom);
 }
 const render = () => {
-  //sphere.render(clock.getDelta());
+  particlePicture.render(clock.getDelta());
   renderer.render(scene, camera);
 }
 const renderLoop = () => {
@@ -57,6 +57,7 @@ const renderLoop = () => {
 const init = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xeeeeee, 1.0);
+  renderer.render(scene, camera);
   camera.position.set(0, 0, 1000);
   camera.lookAt(new THREE.Vector3());
 
