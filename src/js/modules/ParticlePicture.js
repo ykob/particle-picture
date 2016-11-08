@@ -14,8 +14,6 @@ export default class ParticlePicture {
       const index = i;
       const loader = new THREE.TextureLoader();
       loader.load(images[index], (texture) => {
-        texture.magFilter = THREE.NearestFilter;
-        texture.minFilter = THREE.NearestFilter;
         this.textures[index] = texture;
         count++;
         if (count == images.length) {
@@ -29,7 +27,7 @@ export default class ParticlePicture {
     }
   }
   addToScene(scene) {
-    scene.add(this.plane.obj);
+    //scene.add(this.plane.obj);
     scene.add(this.points.obj);
   }
   render(time) {

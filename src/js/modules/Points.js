@@ -4,9 +4,22 @@ export default class Points {
   constructor() {
     this.uniforms = {};
     this.interval = 3;
-    this.obj = this.createPoints();
+    this.obj = null;
   }
   createPoints(texPrev, texNext) {
+    const geometry = new THREE.BufferGeometry()
+    const baseVertices = [];
+    const baseUvs = [];
+    for (let x = 0; x < 512; x ++) {
+      for (let y = 0; y < 512; y ++) {
+        baseVertices.push(x - 256, y - 256, 0);
+        baseUvs.push(1 - (512 - x) / 512, 1 - (512 - y) / 512);
+      }
+    }
+    const vertices = new Float32Array(baseVertices);
+    geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    const uvs = new Float32Array(baseUvs);
+    geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
     this.uniforms = {
       time: {
         type: 'f',
@@ -29,8 +42,8 @@ export default class Points {
         value: texNext,
       },
     };
-    return new THREE.Mesh(
-      new THREE.BufferGeometry(),
+    this.obj = new THREE.Points(
+      geometry,
       new THREE.RawShaderMaterial({
         uniforms: this.uniforms,
         vertexShader: glslify('../../glsl/points.vs'),
@@ -39,6 +52,6 @@ export default class Points {
     );
   }
   render(time) {
-    this.uniforms.time.value += time * this.time;
+    this.uniforms.time.value += time;
   }
 }

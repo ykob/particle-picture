@@ -1,6 +1,7 @@
 precision highp float;
 
 uniform sampler2D texPrev;
+uniform sampler2D texNext;
 
 varying vec2 vUv;
 
