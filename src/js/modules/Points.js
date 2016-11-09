@@ -12,8 +12,8 @@ export default class Points {
     const baseUvs = [];
     for (let x = 0; x < 512; x ++) {
       for (let y = 0; y < 512; y ++) {
-        baseVertices.push(x - 256, y - 256, 0);
-        baseUvs.push(1 - (512 - x) / 512, 1 - (512 - y) / 512);
+        baseVertices.push(x - 256, (y - 256) * -1, 0);
+        baseUvs.push((x / 512), 1 - (y / 512));
       }
     }
     const vertices = new Float32Array(baseVertices);
