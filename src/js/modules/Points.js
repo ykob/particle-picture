@@ -8,18 +8,25 @@ export default class Points {
   }
   createPoints(texPrev, texNext) {
     const geometry = new THREE.BufferGeometry()
-    const baseVertices = [];
+    const baseVertices1 = [];
+    const baseVertices2 = [];
     const baseUvs = [];
     for (let x = 0; x < 512; x ++) {
       for (let y = 0; y < 512; y ++) {
-        baseVertices.push(x - 256, (y - 256) * -1, 0);
+        baseVertices1.push(x - 256, (y - 256) * -1, 0);
+        const rad1 = x / 512 * 2 * Math.PI
+        const rad2 = y / 512 * 2 * Math.PI
+        baseVertices2.push(
+          Math.sin(rad1) * Math.cos(rad2) * 100,
+          Math.cos(rad1) * 100,
+          Math.sin(rad1) * Math.sin(rad2) * 100 * -1,
+        );
         baseUvs.push((x / 512), 1 - (y / 512));
       }
     }
-    const vertices = new Float32Array(baseVertices);
-    geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
-    const uvs = new Float32Array(baseUvs);
-    geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+    geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(baseVertices1), 3));
+    geometry.addAttribute('position2', new THREE.BufferAttribute(new Float32Array(baseVertices2), 3));
+    geometry.addAttribute('uv', new THREE.BufferAttribute(new Float32Array(baseUvs), 2));
     this.uniforms = {
       time: {
         type: 'f',
