@@ -15,16 +15,17 @@ varying vec2 vUv;
 
 void main(void) {
   float step1 = min(mod(time, 4.0) / 4.0 * 2.0, 1.0);
-  float step2 = easeIn(min(step1 / 0.25, 1.0)) * easeIn(min((1.0 - step1) / 0.5, 1.0));
-  float noise = (cnoise3(vec3(
-    position2.x / 128.0 + time * 2.0,
-    position2.y / 2.0 + time * 2.0 * -1.0,
-    position2.z / 128.0 + time * 2.0
-  )) + 1.0) / 2.0;
-  mat4 rotate = rotateMatrix(time, time, time);
+  float step2 = easeIn(min(step1 / 0.1, 1.0)) * easeIn(min((1.0 - step1) / 0.5, 1.0));
+  float noise = cnoise3(vec3(
+    position2.x / 128.0 + time / 2.0,
+    position2.y / 128.0 + time / 2.0,
+    position2.z / 128.0 + time / 2.0 * -1.0
+  ));
+  mat4 rotate = rotateMatrix(time * 0.25, time * 0.25, time * 0.25);
   vec3 updatePosition1 = position * (1.0 - step2);
-  vec3 updatePosition2 = (rotate * vec4((position2 + normalize(position2) * pow(noise, 4.0) * 600.0) * step2, 1.0)).xyz;
+  vec3 updatePosition2 = (rotate * vec4((position2 + normalize(position2) * noise * 50.0) * step2, 1.0)).xyz;
+  vec4 updatePositionLast = vec4(updatePosition1 + updatePosition2, 1.0);
   vUv = uv;
-  gl_PointSize = 2.0;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(updatePosition1 + updatePosition2, 1.0);
+  gl_PointSize = (1.0 - step2) * 2.0 + step2 * (20.0 + (sin(radians(time * 2.0)) * 10.0 - 10.0)) * (100.0 / length(updatePositionLast.xyz));
+  gl_Position = projectionMatrix * modelViewMatrix * updatePositionLast;
 }

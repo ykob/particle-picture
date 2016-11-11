@@ -16,11 +16,11 @@ export default class Points {
         baseVertices1.push(x - 256, (y - 256) * -1, 0);
         const rad1 = x / 512 * 2 * Math.PI
         const rad2 = y / 512 * 2 * Math.PI
-        const radius = x % 32 * 4 + 100
+        const radius = 1000 * (1 - Math.random() * Math.random() * Math.random()) + 100
         baseVertices2.push(
           Math.sin(rad1) * Math.cos(rad2) * radius,
-          Math.cos(rad1) * radius,
-          Math.sin(rad1) * Math.sin(rad2) * radius * -1,
+          Math.cos(rad1) * radius ,
+          Math.sin(rad1) * Math.sin(rad2) * radius,
         );
         baseUvs.push((x / 512), 1 - (y / 512));
       }
