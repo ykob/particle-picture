@@ -17,9 +17,9 @@ export default class Points {
         const rad1 = x / 512 * 2 * Math.PI
         const rad2 = y / 512 * 2 * Math.PI
         baseVertices2.push(
-          Math.sin(rad1) * Math.cos(rad2) * 100,
-          Math.cos(rad1) * 100,
-          Math.sin(rad1) * Math.sin(rad2) * 100 * -1,
+          Math.sin(rad1) * Math.cos(rad2) * 200,
+          Math.cos(rad1) * 200,
+          Math.sin(rad1) * Math.sin(rad2) * 200 * -1,
         );
         baseUvs.push((x / 512), 1 - (y / 512));
       }
