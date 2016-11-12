@@ -14,12 +14,12 @@ export default class Points {
     for (let x = 0; x < 512; x ++) {
       for (let y = 0; y < 512; y ++) {
         baseVertices1.push(x - 256, (y - 256) * -1, 0);
-        const rad1 = x / 512 * 2 * Math.PI
-        const rad2 = y / 512 * 2 * Math.PI
-        const radius = 1000 * (1 - Math.random() * Math.random() * Math.random()) + 100
+        const rad1 = (Math.random() * 90 +  Math.random() * 90) * Math.PI / 180
+        const rad2 = Math.random() * 360 * Math.PI / 180
+        const radius = 2000 * Math.random() * Math.random() / 2 + 100
         baseVertices2.push(
           Math.sin(rad1) * Math.cos(rad2) * radius,
-          Math.cos(rad1) * radius ,
+          Math.cos(rad1) * radius,
           Math.sin(rad1) * Math.sin(rad2) * radius,
         );
         baseUvs.push((x / 512), 1 - (y / 512));
