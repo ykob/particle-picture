@@ -67,7 +67,7 @@ const init = () => {
       $('.p-preloader').addClass('is-hidden').on('transitionend', function() {
         $(this).addClass('is-stoped');
       });
-      particlePicture.addToScene(scene);
+      scene.add(particlePicture.obj);
       setEvent();
       initDatGui();
       initStats();
