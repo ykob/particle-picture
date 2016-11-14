@@ -87,7 +87,7 @@ export default class ParticlePicture {
     if (this.uniforms.time.value > 1) {
       this.uniforms.time.value = 0;
       this.prevNum = this.nextNum;
-      this.uniforms.texPrev.value = this.textures[this.nextNum];
+      this.uniforms.texPrev.value = this.textures[this.prevNum];
       while (this.nextNum == this.prevNum) {
         this.nextNum = Math.floor(Math.random() * this.textures.length);
       }
