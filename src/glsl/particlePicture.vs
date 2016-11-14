@@ -5,12 +5,14 @@ attribute vec2 uv;
 uniform float time;
 uniform mat4 projectionMatrix;
 uniform mat4 modelViewMatrix;
+uniform vec2 resolution;
+uniform vec2 rotate;
 
 varying vec2 vUv;
 varying float vStepPrev;
 varying float vStepNext;
 
-#pragma glslify: rotateMatrixY = require(glsl-matrix/rotateMatrixY);
+#pragma glslify: rotateMatrix = require(glsl-matrix/rotateMatrix);
 #pragma glslify: cnoise3 = require(glsl-noise/classic/3d);
 #pragma glslify: ease = require(glsl-easings/quadratic-out);
 
@@ -34,9 +36,15 @@ void main(void) {
     vcos * radius * stepPrev * stepNext,
     vsin * vsin * radius * stepPrev * stepNext
   );
+  mat4 rotateMat = rotateMatrix(
+    radians((rotate.y / resolution.y * 2.0 - 1.0) * -20.0),
+    radians((rotate.x / resolution.x * 2.0 - 1.0) * -20.0),
+    0.0
+  );
   vUv = uv;
   vStepPrev = stepPrev;
   vStepNext = stepNext;
-  gl_PointSize = 2.0 + stepPrev * stepNext * 2.0;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(updatePosition, 1.0);
+  vec4 mvPosition = modelViewMatrix * rotateMat * vec4(updatePosition, 1.0);
+  gl_PointSize = 2.0 + stepPrev * stepNext * (2000.0 / length(mvPosition.xyz));
+  gl_Position = projectionMatrix * mvPosition;
 }

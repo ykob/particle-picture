@@ -69,6 +69,10 @@ export default class ParticlePicture {
         type: 't',
         value: texNext,
       },
+      rotate: {
+        type: 'v2',
+        value: new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2),
+      },
     };
     return new THREE.Points(
       geometry,
