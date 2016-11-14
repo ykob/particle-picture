@@ -13,6 +13,7 @@ void main(void) {
   if (n.z < 0.0) discard;
   vec4 colorPrev = texture2D(texPrev, vUv);
   vec4 colorNext = texture2D(texNext, vUv);
-  float step1 = smoothstep(0.2, 0.8 , vStep);
-  gl_FragColor = (1.0 - step1) * colorPrev + step1 * colorNext;
+  float step1 = 1.0 - smoothstep(0.4, 1.0, vStep);
+  float step2 = smoothstep(0.0, 0.6, vStep);
+  gl_FragColor = step1 * colorPrev + step2 * colorNext;
 }

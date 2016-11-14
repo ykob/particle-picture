@@ -4,7 +4,7 @@ export default class ParticlePicture {
   constructor() {
     this.textures = [];
     this.uniforms = {};
-    this.interval = 3;
+    this.interval = 2;
     this.prevNum = 0;
     this.nextNum = 1;
     this.obj = null;
