@@ -86,6 +86,10 @@ export default class ParticlePicture {
   addToScene(scene) {
     scene.add(this.points.obj);
   }
+  resize() {
+    this.uniforms.resolution.value.set(window.innerWidth, window.innerHeight)
+    this.uniforms.rotate.value.set(window.innerWidth / 2, window.innerHeight / 2)
+  }
   render(time) {
     this.uniforms.time.value += time / this.interval;
     if (this.uniforms.time.value > 1) {

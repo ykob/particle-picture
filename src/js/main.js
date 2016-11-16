@@ -24,6 +24,7 @@ const resizeWindow = () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  particlePicture.resize();
 }
 const setEvent = () => {
   $(window).on('resize', () => {
