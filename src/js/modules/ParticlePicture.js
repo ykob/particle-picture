@@ -5,6 +5,10 @@ export default class ParticlePicture {
     this.textures = [];
     this.uniforms = {};
     this.interval = 2;
+    this.noiseX = 2;
+    this.noiseY = 2;
+    this.noiseRadius = 100;
+    this.overlapWidth = 0.1;
     this.prevNum = 0;
     this.nextNum = 1;
     this.obj = null;
@@ -28,25 +32,15 @@ export default class ParticlePicture {
   }
   createPoints(texPrev, texNext) {
     const geometry = new THREE.BufferGeometry()
-    const baseVertices1 = [];
-    const baseVertices2 = [];
+    const baseVertices = [];
     const baseUvs = [];
     for (let x = 0; x < 512; x ++) {
       for (let y = 0; y < 512; y ++) {
-        baseVertices1.push(x - 256, (y - 256) * -1, 0);
-        const rad1 = (Math.random() * 90 + Math.random() * 90) * Math.PI / 180
-        const rad2 = Math.random() * 360 * Math.PI / 180
-        const radius = 2000 * Math.random() * Math.random() / 2 + 100
-        baseVertices2.push(
-          Math.sin(rad1) * Math.cos(rad2) * radius,
-          Math.cos(rad1) * radius,
-          Math.sin(rad1) * Math.sin(rad2) * radius,
-        );
+        baseVertices.push(x - 256, (y - 256) * -1, 0);
         baseUvs.push((x / 512), 1 - (y / 512));
       }
     }
-    geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(baseVertices1), 3));
-    geometry.addAttribute('position2', new THREE.BufferAttribute(new Float32Array(baseVertices2), 3));
+    geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(baseVertices), 3));
     geometry.addAttribute('uv', new THREE.BufferAttribute(new Float32Array(baseUvs), 2));
     this.uniforms = {
       time: {
@@ -56,6 +50,22 @@ export default class ParticlePicture {
       interval: {
         type: 'f',
         value: this.interval,
+      },
+      noiseX: {
+        type: 'f',
+        value: this.noiseX
+      },
+      noiseY: {
+        type: 'f',
+        value: this.noiseY
+      },
+      noiseRadius: {
+        type: 'f',
+        value: this.noiseRadius
+      },
+      overlapWidth: {
+        type: 'f',
+        value: this.overlapWidth
       },
       resolution: {
         type: 'v2',

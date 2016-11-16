@@ -36,11 +36,27 @@ const setEvent = () => {
 const initDatGui = () => {
   const gui = new dat.GUI();
   const controller = {
-    //radius: gui.add(sphere, 'radius', 0, 1000).name('Sphere Radius')
+    interval: gui.add(particlePicture, 'interval', 0.3, 5).name('interval').step(0.1),
+    noiseX: gui.add(particlePicture, 'noiseX', 0.1, 100).name('noise x').step(0.1),
+    noiseY: gui.add(particlePicture, 'noiseY', 0.1, 100).name('noise y').step(0.1),
+    noiseRadius: gui.add(particlePicture, 'noiseRadius', 0, 300).name('noise radius'),
+    overlapWidth: gui.add(particlePicture, 'overlapWidth', 0, 1).name('overlap width').step(0.01),
   }
-  // controller.radius.onChange((value) => {
-  //   sphere.mesh.material.uniforms.radius.value = value;
-  // });
+  controller.interval.onChange((value) => {
+    particlePicture.uniforms.interval.value = value;
+  });
+  controller.noiseX.onChange((value) => {
+    particlePicture.uniforms.noiseX.value = value;
+  });
+  controller.noiseY.onChange((value) => {
+    particlePicture.uniforms.noiseY.value = value;
+  });
+  controller.noiseRadius.onChange((value) => {
+    particlePicture.uniforms.noiseRadius.value = value;
+  });
+  controller.overlapWidth.onChange((value) => {
+    particlePicture.uniforms.overlapWidth.value = value;
+  });
 }
 const initStats = () => {
   stats.showPanel(0);
